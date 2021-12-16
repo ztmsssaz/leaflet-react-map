@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, FloatingLabel, Form, Row, Button } from 'react-bootstrap';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import osm from './osm-providers';
+import osm from '../../helpers/osm-providers';
 import Style from './style';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 
-const Show_Shapes = () => {
+const ShowShapes = () => {
     const mapItems = useSelector((state) => state.mapsState.items);
     const [position, setPosition] = useState([30, 30]);
     const [shapeIndex, setShapeIndex] = useState(null);
@@ -19,7 +19,6 @@ const Show_Shapes = () => {
     const dispatch = useDispatch();
 
     const editedShape = (e) => {
-
         const _latlngs = e;
         console.log(_latlngs);
     }
@@ -74,6 +73,7 @@ const Show_Shapes = () => {
             temp = item._latlngs[0][0];
         setPosition([parseInt(temp.lat), parseInt(temp.lng)]);
     }
+
     return (
         <Style>
             <div className='d-flex flex-wrap'>
@@ -123,6 +123,4 @@ const Show_Shapes = () => {
     )
 }
 
-
-
-export default Show_Shapes;
+export default ShowShapes;

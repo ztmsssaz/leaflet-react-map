@@ -5,7 +5,7 @@ import Layout from "../layout";
 
 
 const Home = lazy(() => import("../pages/home"));
-const ShowShapes = lazy(() => import("../pages/show-shapes"));
+const Manageshapes = lazy(() => import("../pages/manageshapes"));
 
 function MainRouter() {
     return (
@@ -14,7 +14,7 @@ function MainRouter() {
                 <Layout>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/show-shapes" element={<ShowShapes />} />
+                        <Route path="/show-shapes" element={<Manageshapes />} />
                     </Routes>
                 </Layout>
             </Suspense>

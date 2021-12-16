@@ -1,4 +1,3 @@
-import Draw from './components/draw';
 import MainRouter from './router';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

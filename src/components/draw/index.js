@@ -1,7 +1,7 @@
 import { Map, TileLayer, FeatureGroup } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw'
 import { useRef, useState } from 'react';
-import osm from './osm-providers';
+import osm from '../../helpers/osm-providers';
 import Style from './style';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';

@@ -18,7 +18,6 @@ const Style = styled.div`
     cursor:pointer;
     }
 }
-
 `
 
 export default Style;
