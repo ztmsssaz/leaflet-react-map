@@ -9,7 +9,7 @@ import GeomanControls from '../geoman/controls'
 import AddShapeModal from './addShapeModal'
 import Style from './style'
 
-const Draw: React.FC<{zoom: number}> = ({zoom}) => {
+const Draw: React.FC<{zoom: number}> = ({zoom = 10}) => {
   const [show, setShow] = React.useState(false)
   const [data, setData] = React.useState({})
   const mapRef = useRef<L.Map>(null)
