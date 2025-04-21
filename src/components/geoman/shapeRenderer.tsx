@@ -31,7 +31,15 @@ const GeomanShapeRenderer = ({item}: {item: any}) => {
       default:
         return
     }
+    delete (L.Icon.Default.prototype as any)._getIconUrl
 
+    L.Icon.Default.mergeOptions({
+      iconUrl: 'assets/icons/location-icon.png',
+      iconSize: [35, 35],
+      iconAnchor: [16, 32],
+      iconRetinaUrl: 'assets/icons/location-icon.png',
+      shadowUrl: null,
+    })
     if (layer) {
       layer.bindPopup(item.name)
       layer.addTo(map)

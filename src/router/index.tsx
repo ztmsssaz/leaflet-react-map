@@ -1,7 +1,7 @@
 import {lazy, Suspense} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import Loader from '../components/loader'
 import Layout from '../layout'
+import FallbackLoading from '../components/fallbackLoading'
 
 const Home = lazy(() => import('../pages/home'))
 const Manageshapes = lazy(() => import('../pages/manageshapes'))
@@ -9,7 +9,7 @@ const Manageshapes = lazy(() => import('../pages/manageshapes'))
 function MainRouter() {
   return (
     <Router>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<FallbackLoading />}>
         <Layout>
           <Routes>
             <Route

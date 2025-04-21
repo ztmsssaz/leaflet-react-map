@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap'
 import {faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {MapContainer, TileLayer, useMap} from 'react-leaflet'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
 import '@geoman-io/leaflet-geoman-free'
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import React, {useState} from 'react'
+import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap'
+import {MapContainer, TileLayer} from 'react-leaflet'
+import {useDispatch, useSelector} from 'react-redux'
 
+import {editMap, removeMap} from '../../context/slices/mapSlice'
 import {RootState} from '../../context/store'
-import {removeMap, editMap} from '../../context/slices/mapSlice'
-import Style from './style'
 import GeomanShapeRenderer from '../geoman/shapeRenderer'
+import Style from './style'
 
 const ShowShapes = () => {
   const mapItems = useSelector((state: RootState) => state.maps.items)
@@ -27,19 +27,6 @@ const ShowShapes = () => {
   const handleNameChange = (idx: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newName = e.target.value
     dispatch(editMap({id: mapItems[idx].id, changes: {name: newName}}))
-  }
-
-  const handleMapReady = (map: L.Map) => {
-    map.pm.addControls({
-      position: 'topleft',
-      drawCircle: false,
-      drawMarker: false,
-      drawCircleMarker: false,
-    })
-
-    map.on('pm:create', (e: any) => {
-      console.log('New shape created:', e)
-    })
   }
 
   return (
