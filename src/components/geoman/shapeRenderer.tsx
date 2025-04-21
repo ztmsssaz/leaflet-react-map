@@ -7,7 +7,7 @@ const GeomanShapeRenderer = ({item}: {item: any}) => {
 
   useEffect(() => {
     if (!map || !item) return
-
+    console.log(item)
     let layer: any = null
     switch (item.layerType.toLowerCase()) {
       case 'polygon':
@@ -22,6 +22,7 @@ const GeomanShapeRenderer = ({item}: {item: any}) => {
           color: 'blue',
         })
         break
+      case 'line': // اضافه شد
       case 'polyline':
         layer = L.polyline(item.latlngs, {color: 'red'})
         break
