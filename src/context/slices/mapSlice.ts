@@ -34,13 +34,22 @@ const mapSlice = createSlice({
       state.items = state.items.filter((q) => q.id !== action.payload)
       localStorage.setItem('mapShapes', JSON.stringify(state.items))
     },
-    editMap: (state, action: PayloadAction<{id: number; name: string}>) => {
+    editShapeName: (state, action: PayloadAction<{id: number; name: string}>) => {
       const editedItemIndex = state.items.findIndex((item) => action.payload.id === item.id)
       state.items[editedItemIndex] = {...state.items[editedItemIndex], name: action.payload.name}
+      localStorage.setItem('mapShapes', JSON.stringify(state.items))
+    },
+    updateMapShape: (state, action: PayloadAction<{id: number; latlngs: any}>) => {
+      const {id, latlngs} = action.payload
+      const index = state.items.findIndex((item) => item.id === id)
+      if (index !== -1) {
+        state.items[index].latlngs = latlngs
+      }
       localStorage.setItem('mapShapes', JSON.stringify(state.items))
     },
   },
 })
 
-export const {getAllMaps, getMapById, addMap, removeMap, editMap} = mapSlice.actions
+export const {getAllMaps, getMapById, addMap, removeMap, editShapeName, updateMapShape} =
+  mapSlice.actions
 export default mapSlice.reducer

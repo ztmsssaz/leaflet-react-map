@@ -8,10 +8,11 @@ import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap'
 import {MapContainer, TileLayer} from 'react-leaflet'
 import {useDispatch, useSelector} from 'react-redux'
 
-import {editMap, removeMap} from '../../context/slices/mapSlice'
+import {editShapeName, removeMap, updateMapShape} from '../../context/slices/mapSlice'
 import {RootState} from '../../context/store'
 import GeomanShapeRenderer from '../geoman/shapeRenderer'
 import Style from './style'
+import {serializeLatlngs} from '../../helpers/serializeLatLangs'
 
 const ShowShapes = () => {
   const mapItems = useSelector((state: RootState) => state.maps.items)
@@ -23,9 +24,15 @@ const ShowShapes = () => {
     setSelectedIndex(0)
   }
 
+  const handleEditShape = (newLatlngs: any) => {
+    const serializedLatlngs = serializeLatlngs(newLatlngs)
+
+    dispatch(updateMapShape({id: mapItems[selectedIndex].id, latlngs: serializedLatlngs}))
+  }
+
   const submitEditForm = (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
-      dispatch(editMap({id: id, name: e.target.value}))
+      dispatch(editShapeName({id: id, name: e.target.value}))
     } else {
       alert('Please Enter The Shape Name!')
     }
@@ -50,7 +57,12 @@ const ShowShapes = () => {
                   attribution='&copy; OpenStreetMap contributors'
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
-                {mapItems[selectedIndex] && <GeomanShapeRenderer item={mapItems[selectedIndex]} />}
+                {mapItems[selectedIndex] && (
+                  <GeomanShapeRenderer
+                    onEdit={(e: any) => handleEditShape(e)}
+                    item={mapItems[selectedIndex]}
+                  />
+                )}
               </MapContainer>
             </Col>
 
