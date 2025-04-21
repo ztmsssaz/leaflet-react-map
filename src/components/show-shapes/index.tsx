@@ -18,14 +18,17 @@ const ShowShapes = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const dispatch = useDispatch()
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: number) => {
     dispatch(removeMap(id))
     setSelectedIndex(0)
   }
 
-  const handleNameChange = (idx: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = e.target.value
-    dispatch(editMap({id: mapItems[idx].id, changes: {name: newName}}))
+  const submitEditForm = (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      dispatch(editMap({id: id, name: e.target.value}))
+    } else {
+      alert('Please Enter The Shape Name!')
+    }
   }
 
   return (
@@ -72,8 +75,9 @@ const ShowShapes = () => {
                         <Form.Control
                           type='text'
                           value={item.name}
+                          name='name'
                           placeholder='Enter name'
-                          onChange={handleNameChange(index)}
+                          onChange={submitEditForm(item.id)}
                           autoComplete='off'
                         />
                       </FloatingLabel>

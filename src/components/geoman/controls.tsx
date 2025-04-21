@@ -19,11 +19,11 @@ const GeomanControls = ({
       drawPolygon: true,
       drawPolyline: true,
       drawRectangle: true,
-      drawCircleMarker: false,
-      editMode: false,
-      dragMode: false,
-      cutPolygon: false,
-      removalMode: false,
+      drawCircleMarker: true,
+      editMode: true,
+      dragMode: true,
+      cutPolygon: true,
+      removalMode: true,
     })
     delete (L.Icon.Default.prototype as any)._getIconUrl
 

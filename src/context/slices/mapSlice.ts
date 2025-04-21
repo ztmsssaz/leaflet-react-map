@@ -2,7 +2,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 interface MapItem {
-  id: string
+  id: number
   [key: string | number]: any
 }
 
@@ -23,22 +23,21 @@ const mapSlice = createSlice({
     getAllMaps: (state) => {
       return state
     },
-    getMapById: (state, action: PayloadAction<string>) => {
+    getMapById: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((q) => q.id === action.payload)
     },
     addMap: (state, action: PayloadAction<MapItem>) => {
-      console.log(action.payload)
       state.items.push(action.payload)
       localStorage.setItem('mapShapes', JSON.stringify(state.items))
     },
-    removeMap: (state, action: PayloadAction<string>) => {
+    removeMap: (state, action: PayloadAction<number | string>) => {
       state.items = state.items.filter((q) => q.id !== action.payload)
       localStorage.setItem('mapShapes', JSON.stringify(state.items))
     },
-    editMap: (state, action: PayloadAction<MapItem>) => {
+    editMap: (state, action: PayloadAction<{id: number; name: string}>) => {
       const editedItemIndex = state.items.findIndex((item) => action.payload.id === item.id)
-      state.items[editedItemIndex] = action.payload
-      localStorage.setItem('mapShapes', JSON.stringify(action.payload))
+      state.items[editedItemIndex] = {...state.items[editedItemIndex], name: action.payload.name}
+      localStorage.setItem('mapShapes', JSON.stringify(state.items))
     },
   },
 })
